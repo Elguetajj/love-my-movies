@@ -1,13 +1,18 @@
 from flask import Flask, render_template, url_for
 import os
+import redis
 
 app = Flask(__name__)
+
+client = redis.Redis('localhost','6379',0)
+client.set('language', 'python')
+
 
 @app.route('/')
 @app.route('/home')
 
 def home():
-    return render_template('home.html')
+    return render_template('home.html', client= client)
 
 
 if __name__ == '__main__':
