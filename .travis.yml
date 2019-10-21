@@ -17,13 +17,10 @@ install:
 
 script:
   - python myapp/tests.py
-  - docker build -t juanjelgueta/lmmflask .
 
-#deploy:
- # provider: script
-  #script: 
-   # docker push juanjelgueta/lmmflask;
-  #branch: master
+
+after_success:
+  - sh .travis/deploy_dockerhub.sh
 
 
 
