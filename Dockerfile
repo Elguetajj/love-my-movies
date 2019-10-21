@@ -4,4 +4,4 @@ RUN apt-get install -y python-pip python-dev build-essential redis-server
 COPY myapp /app
 WORKDIR /app
 RUN pip install -r requirements.txt
-CMD ["bash","./redispython.sh"]
+CMD ["bash","./start.sh"]
