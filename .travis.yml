@@ -8,8 +8,8 @@ python:
 services:
   - docker
 
-before_install:
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+#before_install:
+ # - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
 
 
 install:
@@ -19,11 +19,11 @@ script:
   - python myapp/tests.py
   - docker build -t juanjelgueta/lmmflask .
 
-deploy:
-  provider: script
-  script: 
-    docker push juanjelgueta/lmmflask;
-  branch: master
+#deploy:
+ # provider: script
+  #script: 
+   # docker push juanjelgueta/lmmflask;
+  #branch: master
 
 
 
