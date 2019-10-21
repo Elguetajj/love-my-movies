@@ -1,3 +1,3 @@
 docker build -t juanjelgueta/lmmflask:imagetag .
-docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD docker.io
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 docker push juanjelgueta/lmmflask:imagetag
