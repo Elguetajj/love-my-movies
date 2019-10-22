@@ -7,6 +7,9 @@
 
   {% set poster_path= ['https://image.tmdb.org/t/p/original',movies.results[i].poster_path]|join() %}
   {% set short_overview = movies.results[i].overview | truncate(150, end= '...')   %}
+  {% set up_id = [movies.results[i].id,'up']|join() %}
+  {% set up_id = [movies.results[i].id,'down']|join() %}
+
 
   <div class="card">
     <!-- Card image -->
@@ -20,16 +23,19 @@
         </div>
         <!-- up button -->
         <div class="col-sm-2">
-            <button type="button" class="btn btn-danger btn-block"><i class="fas fa-chevron-down"></i></button>
+            <button type="button" id= "down_id" class="btn btn-danger btn-block"><i class="fas fa-chevron-down"></i></button>
         </div>
         <!-- counter -->
         <div class="col-sm-2">
-          <h6>100</h6>
+          <h6>{{ movies.results[i].vote_count }}</h6>
         </div>
         <!-- down button -->
         <div class="col-sm-2">
-          <button type="button" class="btn btn-success btn-block"><i class="fas fa-chevron-up"></i></button>
+          <button type="button" id='{{up_id}}' class="btn btn-success btn-block"><i class="fas fa-chevron-up"></i></button>
         </div>
+
+
+
       </div>
       <hr class="hr-light">
       <!-- Text -->
