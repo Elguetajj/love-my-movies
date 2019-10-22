@@ -17,8 +17,7 @@ app = Flask(__name__)
 
 def home():
     r = requests.get('https://api.themoviedb.org/3/trending/movie/week?api_key=1b4b5da3860135ee31a089ea237baae3')
-    print(r.text)
-    return render_template('home.html', movies=json.loads(r) )
+    return render_template('home.html', movies=json.loads(r.text) )
 
 
 
