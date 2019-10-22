@@ -2,7 +2,32 @@
 {% block content %}
 
 <h1> Hello World!!!!!!</h1>
-<h1> {{ client.get('language') }} </h1>
+
+<p> {{ movies }} </p>
+
+
+{% for i in movies %}
+
+ <div class="card">
+
+    <!-- Card image -->
+    <img class="card-img-top" alt="Card image cap">
+    <!-- Card content -->
+    <div class="card-body">
+      <!-- Title -->
+      <h4 class="card-title"><a> {{ i.title }} </a></h4>
+      <!-- Text -->
+      <p class="card-text"> {{ i.overview }} </p>
+      <!-- Button -->
+      <a href="#" class="btn btn-primary">Button</a>
+    </div>
+  </div>
+
+
+{% endfor %}
+
+
+
 
 
 {% endblock %}
