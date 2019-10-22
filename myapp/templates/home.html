@@ -3,28 +3,39 @@
 
 <div class="row">
   <div class= "card-columns">
-      {% for i in range(movies.results|length) %}
+  {% for i in range(movies.results|length) %}
 
-      {% set poster_path= ['https://image.tmdb.org/t/p/original',movies.results[i].poster_path]|join() %}
-      {% set short_overview = movies.results[i].overview | truncate(150, end= '...')   %}
+  {% set poster_path= ['https://image.tmdb.org/t/p/original',movies.results[i].poster_path]|join() %}
+  {% set short_overview = movies.results[i].overview | truncate(150, end= '...')   %}
 
-          <div class="card">
-              <!-- Card image -->
-                <img class="card-img-top" src="{{ poster_path }}" alt="Card image cap">
-              <!-- Card content -->
-              <div class="card-body elegant-color white-text rounded-bottom">
-                <!-- Title -->
-                <h4 class="card-title"><a> {{ movies.results[i].title }} </a></h4>
-                <hr class="hr-light">
-                <!-- Text -->
-                <p class="card-text" style="text-align: justify;"> {{ short_overview  }} </p>
-              </div>
-            </div>
-        {% if (i + 1)/4 ==0 and i != movies.results|length %}
-          </div> <div class="row">
-        {% endif %}
+  <div class="card">
+    <!-- Card image -->
+    <img class="card-img-top" src="{{ poster_path }}" alt="Card image cap">
+    <!-- Card content -->
+    <div class="card-body elegant-color white-text rounded-bottom">
+    <!-- Title -->
+      <div class="row">
+        <div class="col-sm-6">
+          <h4 class="card-title"><a> {{ movies.results[i].title }} </a></h4>
+        </div>
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-danger btn-block"><i class="fas fa-chevron-down"></i></button>
+          </div>
+        <div class="col-sm-3">
+          <button type="button" class="btn btn-success btn-block"><i class="fas fa-chevron-up"></i></button>
+        </div>
+      </div>
+      <hr class="hr-light">
+      <!-- Text -->
+      <p class="card-text" style="text-align: justify;"> {{ short_overview  }} </p>
+    </div>
 
-    {% endfor %}
+  </div>
+  {% if (i + 1)/4 ==0 and i != movies.results|length %}
+        </div> <div class="row">
+  {% endif %}
+
+  {% endfor %}
 
   </div>
 </div>
