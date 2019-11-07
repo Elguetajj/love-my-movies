@@ -7,7 +7,7 @@ from database import Database
 
 app = Flask(__name__)
 
-r = redis.Redis('redis://h:p37e3ac52cecd741df775cce85f0659b031283a9b5f0a5ed0acd2f00768e8a987@ec2-3-231-99-188.compute-1.amazonaws.com:7979')
+r = redis.Redis("REDIS_URL")
 db = Database(r)
 
 
