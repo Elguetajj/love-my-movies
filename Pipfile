@@ -7,10 +7,10 @@ verify_ssl = true
 pylint = "*"
 
 [packages]
-flask = "*"
 requests = "*"
 redis = "*"
 rq = "*"
+Flask = "*"
 
 [requires]
 python_version = "3.7"

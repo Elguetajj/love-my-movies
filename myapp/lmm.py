@@ -1,33 +1,58 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 import os
-import redis
-from rq import Queue
 import requests
 import json
-
+import redis
+from database import Database
 
 app = Flask(__name__)
 
-#client= redis.Redis('localhost',6379,0)
+r = redis.Redis('redis://h:p37e3ac52cecd741df775cce85f0659b031283a9b5f0a5ed0acd2f00768e8a987@ec2-3-231-99-188.compute-1.amazonaws.com:7979')
+db = Database(r)
+
+
 
 
 @app.route('/')
 @app.route('/home')
 
 def home():
-    r = requests.get('https://api.themoviedb.org/3/trending/movie/week?api_key=1b4b5da3860135ee31a089ea237baae3')
-    return render_template('home.html', movies=json.loads(r.text) )
+    db.check_cache()
+    return render_template('home.html', movies=json.loads(db.redis_db.get('trending_json')), db=db.redis_db)
 
 
 @app.route('/tv')
 def tv():
-    r = requests.get('https://api.themoviedb.org/3/trending/tv/week?api_key=1b4b5da3860135ee31a089ea237baae3')
-    return render_template('home.html', movies=json.loads(r.text))
+    db.check_cache()
+    return render_template('home.html', movies=json.loads(db.redis_db.get('tv_json')), db=db.redis_db)
 
 @app.route('/Sci-fi')
 def Sci_fi():
-    r = requests.get('https://api.themoviedb.org/3/discover/movie?api_key=1b4b5da3860135ee31a089ea237baae3&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=%20878')
-    return render_template('home.html', movies=json.loads(r.text))
+    db.check_cache()
+    return render_template('home.html', movies=json.loads(db.redis_db.get('sci_fi_json')), db=db.redis_db )
+
+
+@app.route('/upvote', methods=['POST'])
+def upvote_post():
+    if request.method == "POST":
+        movie_id = json.loads(request.data).get('postid')
+        db.upvote(movie_id)
+        return json.dumps({'status' : 'success'})
+              
+    #     if post:
+    #         setattr(post, "upvote_count", post.upvote_count + 1)
+    #         db_session.commit()
+                 
+    #         return json.dumps({'status' : 'success'})
+    #     return json.dumps({'status' : 'no post found'})
+    # return redirect(url_for('index'))
+
+@app.route('/downvote', methods=['POST'])
+def downvote_post():
+    if request.method == "POST":
+        movie_id = json.loads(request.data) 
+        db.downvote(movie_id)
+        return json.dumps({'status' : 'success'})
 
 
 
