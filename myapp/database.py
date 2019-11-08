@@ -48,7 +48,6 @@ class Database:
     
     def upvote(self, id):
         self.redis_db.incr(f'{id}')
-        print(self.redis_db.get(f'{id}'))
 
     def downvote(self,id):
         self.redis_db.decr(f'{id}',  )

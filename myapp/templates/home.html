@@ -23,15 +23,15 @@
         </div>
         <!-- up button -->
         <div class="col-sm-2">
-            <button type="button" id= "{{down_id}}" data-postid="{{ movies.results[i].id }}"  class="btn btn-danger btn-block"><i class="fas fa-chevron-down"></i></button>
+            <button type="button" id= "{{down_id}}" data-postid="{{ movies.results[i].id }}"  class="btn btn-danger btn-block"> <i class="fas fa-chevron-down"></i></button>
         </div>
         <!-- counter -->
         <div class="col-sm-2">
-          <h6>{{ db.get(movies.results[i].id)|int}}</h6>
+          <h6 id='{{ movies.results[i].id }}'>{{ db.get(movies.results[i].id)|int}}</h6>
         </div>
         <!-- down button -->
         <div class="col-sm-2">
-          <button type="button" id='{{up_id}}' data-postid="{{ movies.results[i].id }}" class="btn btn-success btn-block"><i class="fas fa-chevron-up"></i></button>
+          <button type="button" id='{{up_id}}'   data-postid="{{ movies.results[i].id }}" class="btn btn-success btn-block"><i class="fas fa-chevron-up"></i></button>
         </div>
       </div>
       <hr class="hr-light">
@@ -46,6 +46,8 @@
 
   <script type=text/javascript>
     $(document).on('click', '#{{up_id}}', function(event) {
+      upvote($('#{{up_id}}').data('postid'))
+      $('#{{up_id}}').attr('disabled',true)
       $.ajax({
         url : '/upvote',
         type : "post",
@@ -53,7 +55,7 @@
         dataType: "json",
         data : JSON.stringify({'postid' : $('#{{up_id}}').data('postid')}),
         success : function(response) {
-          console.log(response);	
+          console.log(response);
         },
         error : function(xhr) {
           console.log(xhr);
@@ -61,10 +63,45 @@
       });
       event.preventDefault();
     });
-  </script>
 
-  {% endfor %}  
+  $(document).on('click', '#{{down_id}}', function(event) {
+    downvote($('#{{down_id}}').data('postid'))
+    $('#{{down_id}}').attr('disabled',true)
+    $.ajax({
+      url : '/downvote',
+      type : "post",
+      contentType: 'application/json;charset=UTF-8',
+      dataType: "json",
+      data : JSON.stringify({'postid' : $('#{{down_id}}').data('postid')}),
+      success : function(response) {
+        console.log(response);
+      },
+      error : function(xhr) {
+        console.log(xhr);
+      }
+    });
+    event.preventDefault();
+  });
 
+
+  function upvote(id){
+    var clicks =  parseInt(document.getElementById(id).textContent)
+    clicks += 1;
+    document.getElementById(id).innerHTML = clicks;
+  }
+
+  function downvote(id) {
+    var clicks =  parseInt(document.getElementById(id).textContent)
+    clicks -= 1;
+    document.getElementById(id).innerHTML = clicks;
+  }
+
+
+</script>
+  {% endfor %}
   </div>
 </div>
+
+
+
 {% endblock %}

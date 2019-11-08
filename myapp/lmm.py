@@ -7,7 +7,7 @@ from database import Database
 
 app = Flask(__name__)
 
-r = redis.Redis("REDIS_URL")
+r = redis.Redis("localhost",6379,0)
 db = Database(r)
 
 
@@ -50,7 +50,7 @@ def upvote_post():
 @app.route('/downvote', methods=['POST'])
 def downvote_post():
     if request.method == "POST":
-        movie_id = json.loads(request.data) 
+        movie_id = json.loads(request.data).get('postid')
         db.downvote(movie_id)
         return json.dumps({'status' : 'success'})
 
