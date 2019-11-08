@@ -47,7 +47,7 @@ The app will look like this:
 
 # Usage
 
-no need for docker or anything, visit at https://young-refuge-73995.herokuapp.com/home
+docker-compose up --build
 
 # The Movie Database API
 We are going to use The Movie Database API 3 [TMDd](https://www.themoviedb.org/) to retrieve our initial data.
