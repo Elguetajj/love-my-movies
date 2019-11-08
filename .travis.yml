@@ -8,8 +8,8 @@ python:
 services:
   - docker
 
-#before_install:
- # - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+before_install:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
 
 
 install:
@@ -17,6 +17,7 @@ install:
 
 script:
   - python tests/tests.py
+
 
 
 
