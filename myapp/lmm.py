@@ -7,7 +7,7 @@ from database import Database
 
 app = Flask(__name__)
 
-r = redis.Redis("docker_redis")
+r = redis.Redis("localhost",6379,0)
 db = Database(r)
 
 
