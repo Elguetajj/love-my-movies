@@ -47,7 +47,12 @@ The app will look like this:
 
 # Usage
 
-docker-compose up --build
+$ docker-compose up -d --build 
+
+
+#copy the result of this command and add :5000 in your browser to see the webapp
+
+$ docker-machine ip default
 
 # The Movie Database API
 We are going to use The Movie Database API 3 [TMDd](https://www.themoviedb.org/) to retrieve our initial data.
